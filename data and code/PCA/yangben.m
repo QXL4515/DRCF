@@ -1,0 +1,36 @@
+function y1=yangben(rain,y,num)
+rain66=[];
+for i=1:1:2912
+    if(rain(i,1)==0)
+        rain66(i,1)=-2;
+    else
+        rain66(i,1)=2;
+    end
+end
+j=0;
+train6=zeros(2912,num+1);
+k=1;
+while(k<=2912)
+    if(rain66(k,1)>0)
+        j=j+1;
+        train6(j,1:num)=y(k-2,:);
+        train6(j,num+1)=rain66(k-2,1);
+        j=j+1;
+        train6(j,1:num)=y(k-1,:);
+        train6(j,num+1)=rain66(k-1,1);
+        j=j+1;
+        train6(j,1:num)=y(k,:);
+        train6(j,num+1)=rain66(k,1);
+        k=k+1;
+        while(rain66(k,1)>0)
+            j=j+1;
+            train6(j,1:num)=y(k,:);
+            train6(j,num+1)=rain66(k,1);
+            k=k+1;
+        end
+    else
+       k=k+1;
+    end
+end
+train6=train6(1:j,:);
+y1=train6;

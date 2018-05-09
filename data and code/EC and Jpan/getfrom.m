@@ -1,0 +1,21 @@
+function y1=getfrom(path,x,y)
+if(exist(path,'file'))
+    a=importdata(path,'\n');
+    [m1,n1]=size(a);
+    if(m1==7657)
+       num=round((50-y)*8)*681+round((x-60)*8)+1;
+       rol=fix(num/25)+3;
+       col=num-(rol-3)*25;
+       c=regexp(a{rol,1},'\s+','split');
+       [m,n]=size(c);
+       if(n==26)
+           y1=str2num(c{1,col+1});
+       else
+           y1=str2num(c{1,col}); 
+       end
+    else
+        y1=-999;
+    end
+else
+    y1=-999;
+end
